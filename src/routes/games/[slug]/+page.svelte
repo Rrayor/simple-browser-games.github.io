@@ -46,9 +46,14 @@
             // Let's check keys: they usually look like '/src/lib/games/flappy-balloon/index.ts'
 
             // We can iterate to find the partial match.
-            const match = Object.keys(modules).find((path) =>
-                path.includes(`/games/${gameSlug}/index.ts`),
-            );
+            console.log("Available modules:", Object.keys(modules));
+            const match = Object.keys(modules).find((path) => {
+                const isMatch = path.includes(`/games/${gameSlug}/index.ts`);
+                console.log(
+                    `Checking "${path}" against "/games/${gameSlug}/index.ts": ${isMatch}`,
+                );
+                return isMatch;
+            });
 
             if (!match) {
                 throw new Error(`Game module not found for: ${gameSlug}`);

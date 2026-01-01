@@ -97,37 +97,61 @@
             </a>
 
             <!-- Snake Clone Card (Coming Soon) -->
-            <div
-                class="relative block overflow-hidden rounded-2xl bg-neutral-900/50 border border-white/5 opacity-70"
+            <!-- Snake Clone Card -->
+            <a
+                href="/games/snake"
+                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20"
             >
                 <div
                     class="aspect-video w-full overflow-hidden bg-neutral-800 relative flex items-center justify-center"
                 >
                     <div
-                        class="text-neutral-600 font-mono text-6xl opacity-20 select-none"
+                        class="text-neutral-600 font-mono text-6xl opacity-20 select-none group-hover:text-green-500/40 transition-colors"
                     >
                         SNAKE
+                    </div>
+                    <!-- Simple snake visual -->
+                    <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    >
+                        <div
+                            class="absolute top-1/2 left-1/4 w-32 h-4 bg-green-500 rounded-sm"
+                        ></div>
+                        <div
+                            class="absolute top-1/2 left-[calc(25%+8rem)] w-4 h-4 bg-red-500 rounded-sm animate-pulse"
+                        ></div>
                     </div>
                 </div>
                 <div class="p-6">
                     <h3
-                        class="mt-3 text-xl font-semibold leading-6 text-neutral-500"
+                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-green-400 transition-colors"
                     >
                         Snake Clone
                     </h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-600">
+                    <p class="mt-2 text-sm leading-6 text-neutral-400">
                         The classic Nokia game. Eat apples, grow longer, don't
                         hit the wall.
                     </p>
-                    <div class="mt-4 flex items-center gap-2">
-                        <span
-                            class="inline-flex items-center rounded-md bg-neutral-800 px-2 py-1 text-xs font-medium text-neutral-400 ring-1 ring-inset ring-neutral-700/10"
+                    <div
+                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-green-400"
+                    >
+                        <span>Play Now</span>
+                        <svg
+                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
                         >
-                            Coming Soon
-                        </span>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                            />
+                        </svg>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 </div>
