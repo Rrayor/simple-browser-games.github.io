@@ -36,7 +36,7 @@ All the code and resources for the games should be AI generated. The AI should b
 
 - Flappy Balloon: A simple flappy bird clone with a balloon instead of a bird and spikes instead of pipes.
 - Snake clone: A simple snake clone with a snake that can eat food and grow.
-- Deep impact clone: A simple deep impact clone with a ship that can shoot bullets and destroy asteroids.
+- Deep impact clone: A side-scrolling space shooter. Protect your home planet (left side) from incoming asteroids. If too many asteroids reach the planet, the game is over. Agility is key to survival.
 
 ## 3D Games
 
