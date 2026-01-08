@@ -25,5 +25,10 @@ export const games: GameMetadata[] = [
         slug: 'asteroid-impact',
         title: 'Asteroid Impact',
         description: 'Destroy asteroids and survive in space.'
+    },
+    {
+        slug: 'void-runner',
+        title: 'Void Runner',
+        description: 'Cyberpunk FPS parkour. Jump, wall-run, and survive the neon void.'
     }
 ];
