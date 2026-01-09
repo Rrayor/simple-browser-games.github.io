@@ -17,11 +17,6 @@ export const games: GameMetadata[] = [
         description: 'The classic Snake game. Eat food and grow longer.'
     },
     {
-        slug: 'pong',
-        title: 'Pong',
-        description: 'Classic arcade table tennis game.'
-    },
-    {
         slug: 'asteroid-impact',
         title: 'Asteroid Impact',
         description: 'Destroy asteroids and survive in space.'

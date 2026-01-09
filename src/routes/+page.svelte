@@ -1,247 +1,95 @@
 <script lang="ts">
-    import balloonUrl from "$lib/games/flappy-balloon/assets/balloon.png";
+    import NoiseBackground from "$lib/components/NoiseBackground.svelte";
+    import ClassifiedsWheel from "$lib/components/ClassifiedsWheel.svelte";
+    import { onMount } from "svelte";
+
+    let mounted = false;
+    onMount(() => {
+        mounted = true;
+    });
 </script>
 
-<div class="space-y-16">
-    <!-- Hero Section -->
-    <section class="relative isolate overflow-hidden">
-        <div
-            class="mx-auto max-w-7xl px-6 lg:px-8 pt-16 pb-12 sm:pt-32 sm:pb-20 text-center"
-        >
+<NoiseBackground />
+
+<main
+    class="min-h-screen relative overflow-hidden flex flex-col pointer-events-none"
+>
+    <!-- Top Bar / Newspaper Header -->
+    <header
+        class="w-full border-b-[3px] border-neutral-900 bg-[#f4f1ea] pt-4 pb-2 px-6 flex justify-between items-end rotate-[0.5deg] shadow-lg pointer-events-auto z-50"
+    >
+        <div class="flex flex-col">
+            <span
+                class="font-share text-xs tracking-[0.3em] text-neutral-700 uppercase"
+                >Vol. 420 • Est. 2026 • Price: $0.00</span
+            >
             <h1
-                class="text-4xl font-bold tracking-tight text-white sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 pb-2"
+                class="font-russo text-6xl md:text-8xl tracking-tighter uppercase leading-[0.8]"
             >
-                Simple Browser Games
+                <span class="text-neutral-900">THE DAILY</span>
+                <span class="text-[#f0f] animate-pulse">GLITCH</span>
             </h1>
-            <p
-                class="mt-6 text-lg leading-8 text-neutral-300 max-w-2xl mx-auto"
-            >
-                A collection of vibe-coded, barely-polished browser games.
-                Expect generic shapes, AI-generated assets, and classic concepts
-                reimagined with absolutely zero budget.
+        </div>
+        <div
+            class="hidden md:flex flex-col items-end text-right font-merriweather text-xs italic text-neutral-800 max-w-[200px] leading-tight"
+        >
+            <p>"All the slop that's fit to compute."</p>
+            <p class="mt-1 font-bold not-italic font-share text-neutral-900">
+                WEATHER: DIGITAL RAIN
             </p>
         </div>
-    </section>
+    </header>
 
-    <!-- Games Grid -->
-    <section class="mx-auto max-w-7xl px-6 lg:px-8">
-        <h2
-            class="text-2xl font-semibold leading-7 text-white mb-8 border-l-4 border-indigo-500 pl-4"
-        >
-            Available Games
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Flappy Balloon Card -->
-            <a
-                href="/games/flappy-balloon"
-                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/20"
-            >
-                <div
-                    class="aspect-video w-full overflow-hidden bg-sky-900 relative"
-                >
-                    <!-- Abstract Visual for Card -->
-                    <div
-                        class="absolute inset-0 bg-gradient-to-b from-sky-300 to-sky-600 opacity-80"
-                    ></div>
-                    <!-- Mock Game Scene -->
-                    <div
-                        class="absolute inset-0 flex items-center justify-center translate-y-4 group-hover:translate-y-2 transition-transform duration-500"
-                    >
-                        <!-- Custom rendered balloon for the card -->
-                        <div
-                            class="w-16 h-16 rounded-full bg-orange-500 relative shadow-lg"
-                        >
-                            <div
-                                class="absolute top-3 left-3 w-4 h-2 rounded-full bg-white/40 -rotate-45"
-                            ></div>
-                            <div
-                                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-white/80 translate-y-full origin-top animate-pulse"
-                            ></div>
-                        </div>
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"
-                    ></div>
-                </div>
-
-                <div class="p-6 relative">
-                    <h3
-                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-indigo-300 transition-colors"
-                    >
-                        Flappy Balloon
-                    </h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-400">
-                        Navigate the balloon through dangerous spikes. A modern
-                        take on the classic Flappy Bird mechanics.
-                    </p>
-                    <div
-                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-indigo-400"
-                    >
-                        <span>Play Now</span>
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Snake Clone Card (Coming Soon) -->
-            <!-- Snake Clone Card -->
-            <a
-                href="/games/snake"
-                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20"
-            >
-                <div
-                    class="aspect-video w-full overflow-hidden bg-neutral-800 relative flex items-center justify-center"
-                >
-                    <div
-                        class="text-neutral-600 font-mono text-6xl opacity-20 select-none group-hover:text-green-500/40 transition-colors"
-                    >
-                        SNAKE
-                    </div>
-                    <!-- Simple snake visual -->
-                    <div
-                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    >
-                        <div
-                            class="absolute top-1/2 left-1/4 w-32 h-4 bg-green-500 rounded-sm"
-                        ></div>
-                        <div
-                            class="absolute top-1/2 left-[calc(25%+8rem)] w-4 h-4 bg-red-500 rounded-sm animate-pulse"
-                        ></div>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3
-                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-green-400 transition-colors"
-                    >
-                        Snake Clone
-                    </h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-400">
-                        The classic Nokia game. Eat apples, grow longer, don't
-                        hit the wall.
-                    </p>
-                    <div
-                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-green-400"
-                    >
-                        <span>Play Now</span>
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Asteroid Impact Card -->
-            <a
-                href="/games/asteroid-impact"
-                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/20"
-            >
-                <div
-                    class="aspect-video w-full overflow-hidden bg-neutral-800 relative flex items-center justify-center"
-                >
-                    <div
-                        class="text-neutral-600 font-mono text-5xl opacity-20 select-none group-hover:text-purple-500/40 transition-colors"
-                    >
-                        ASTEROIDS
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3
-                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-purple-400 transition-colors"
-                    >
-                        Asteroid Impact
-                    </h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-400">
-                        Destroy asteroids and survive in space. A retro space
-                        shooter.
-                    </p>
-                    <div
-                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-purple-400"
-                    >
-                        <span>Play Now</span>
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Void Runner Card -->
-            <a
-                href="/games/void-runner"
-                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-pink-500/50 hover:shadow-2xl hover:shadow-pink-500/20"
-            >
-                <div
-                    class="aspect-video w-full overflow-hidden bg-neutral-950 relative flex items-center justify-center"
-                >
-                    <div
-                        class="text-neutral-600 font-mono text-5xl opacity-20 select-none group-hover:text-pink-500/40 transition-colors"
-                    >
-                        VOID RUNNER
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3
-                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-pink-400 transition-colors"
-                    >
-                        Void Runner
-                    </h3>
-                    <p class="mt-2 text-sm leading-6 text-neutral-400">
-                        Cyberpunk FPS parkour. Jump and wall-run through the
-                        infinite neon void.
-                    </p>
-                    <div
-                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-pink-400"
-                    >
-                        <span>Play Now</span>
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                        </svg>
-                    </div>
-                </div>
-            </a>
+    <!-- Marquee Banner -->
+    <div
+        class="bg-neutral-900 text-[#0f0] font-share overflow-hidden whitespace-nowrap py-1 border-b border-black rotate-[-0.5deg] z-40"
+    >
+        <div class="animate-marquee inline-block">
+            BREAKING NEWS: AI GENERATES GAME, HUMANS CONFUSED +++ VOID RUNNER
+            UPDATED +++ BALLOON POPPED +++ SNAKE EATS TAIL +++ ASTEROID IMPACT
+            IMMINENT +++ NO REFUNDS +++ BREAKING NEWS: AI GENERATES GAME, HUMANS
+            CONFUSED +++ VOID RUNNER UPDATED +++ BALLOON POPPED +++ SNAKE EATS
+            TAIL +++ ASTEROID IMPACT IMMINENT +++ NO REFUNDS +++
         </div>
-    </section>
-</div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div
+        class="flex-1 relative flex items-center justify-center pointer-events-auto"
+    >
+        {#if mounted}
+            <ClassifiedsWheel />
+        {/if}
+
+        <!-- Decoration: Coffee Stain -->
+        <div
+            class="absolute bottom-10 right-10 w-32 h-32 rounded-full border-4 border-[#5a3a1a]/20 pointer-events-none z-[-1] blur-[1px]"
+        ></div>
+        <div
+            class="absolute bottom-12 right-12 w-28 h-28 rounded-full border-2 border-[#5a3a1a]/10 pointer-events-none z-[-1]"
+        ></div>
+    </div>
+
+    <!-- Footer / Legal -->
+    <footer
+        class="absolute bottom-2 left-4 text-[0.5rem] font-merriweather text-neutral-500 max-w-xs opacity-50 z-50"
+    >
+        DISCLAIMER: This interface is for entertainment purposes only using
+        "Vibe OS" technology. Any resemblance to actual operating systems is
+        purely coincidental. Do not feed the code.
+    </footer>
+</main>
+
+<style>
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+</style>
