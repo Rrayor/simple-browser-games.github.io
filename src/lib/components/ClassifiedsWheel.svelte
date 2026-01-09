@@ -42,8 +42,13 @@
         }
     }
 
-    // Distribute games in a circle
-    const radius = 300; // Radius of the wheel
+    // Simplified messy grid positions for 4 items
+    const gridPositions = [
+        { x: -180, y: -180, rot: -4 },
+        { x: 160, y: -150, rot: 2 },
+        { x: -140, y: 170, rot: 3 },
+        { x: 190, y: 140, rot: -2 },
+    ];
 </script>
 
 <div
@@ -57,25 +62,21 @@
     ontouchend={handleEnd}
     bind:this={container}
     role="application"
-    aria-label="Game Selection Wheel"
+    aria-label="Game Selection Grid"
 >
-    <!-- The Wheel -->
+    <!-- The Rotating Collage -->
     <div
         class="absolute w-full h-full flex items-center justify-center transition-transform duration-75 will-change-transform"
         style="transform: rotateY({rotation * 0.5}deg) rotateZ({rotation *
             0.1}deg);"
     >
         {#each games as game, i}
-            {@const angle = (i / games.length) * 360}
-            {@const rad = (angle * Math.PI) / 180}
-            {@const x = Math.cos(rad) * radius}
-            {@const y = Math.sin(rad) * radius}
+            {@const pos = gridPositions[i] || { x: 0, y: 0, rot: 0 }}
 
             <a
                 href={`/games/${game.slug}`}
                 class="absolute block w-64 p-4 bg-[#f0f0f0] border-2 border-neutral-900 shadow-[8px_8px_0px_#000] hover:shadow-[12px_12px_0px_#f0f] hover:border-[#f0f] transition-all group hover:scale-110 z-10"
-                style="transform: translate({x}px, {y}px) rotate({angle +
-                    90}deg);"
+                style="transform: translate({pos.x}px, {pos.y}px) rotate({pos.rot}deg);"
                 draggable="false"
             >
                 <!-- Tape/Sticker Effect -->
@@ -96,7 +97,7 @@
                 </div>
 
                 <div
-                    class="relative h-24 bg-neutral-800 mb-2 overflow-hidden grayscale group-hover:grayscale-0 transition-all"
+                    class="relative h-24 bg-neutral-800 mb-2 overflow-hidden grayscale group-hover:grayscale-0 transition-all text-center"
                 >
                     <!-- Placeholder for thumbnail if missing -->
                     <div
@@ -129,7 +130,7 @@
         {/each}
     </div>
 
-    <!-- Center Hub / Decor -->
+    <!-- Center Background Decor -->
     <div
         class="absolute pointer-events-none flex flex-col items-center justify-center z-0 opacity-50"
     >
