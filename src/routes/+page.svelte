@@ -197,6 +197,51 @@
                     </div>
                 </div>
             </a>
+
+            <!-- Void Runner Card -->
+            <a
+                href="/games/void-runner"
+                class="group relative block overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 transition-all hover:border-pink-500/50 hover:shadow-2xl hover:shadow-pink-500/20"
+            >
+                <div
+                    class="aspect-video w-full overflow-hidden bg-neutral-950 relative flex items-center justify-center"
+                >
+                    <div
+                        class="text-neutral-600 font-mono text-5xl opacity-20 select-none group-hover:text-pink-500/40 transition-colors"
+                    >
+                        VOID RUNNER
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3
+                        class="mt-3 text-xl font-semibold leading-6 text-white group-hover:text-pink-400 transition-colors"
+                    >
+                        Void Runner
+                    </h3>
+                    <p class="mt-2 text-sm leading-6 text-neutral-400">
+                        Cyberpunk FPS parkour. Jump and wall-run through the
+                        infinite neon void.
+                    </p>
+                    <div
+                        class="mt-4 flex items-center gap-x-2 text-xs font-semibold uppercase tracking-wide text-pink-400"
+                    >
+                        <span>Play Now</span>
+                        <svg
+                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 </div>

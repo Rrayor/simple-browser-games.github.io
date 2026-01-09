@@ -25,6 +25,8 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
-		"pixi.js": "^8.14.3"
+		"@types/three": "^0.182.0",
+		"pixi.js": "^8.14.3",
+		"three": "^0.182.0"
 	}
 }
