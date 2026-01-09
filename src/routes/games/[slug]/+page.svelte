@@ -160,9 +160,18 @@
 
     <!-- Footer / Bottom Bar -->
     <div
-        class="mt-16 border-t border-neutral-300 pt-4 flex justify-between font-share text-[0.6rem] text-neutral-400 uppercase tracking-widest"
+        class="mt-16 border-t border-neutral-300 pt-4 flex flex-col md:flex-row justify-between font-share text-[0.6rem] text-neutral-400 uppercase tracking-widest gap-4"
     >
-        <span>EST. 2026 // SIMPLE BROWSER GAMES</span>
-        <span>SCANLINE V3.0 // VIBE-OS ACTIVATED</span>
+        <div class="flex flex-col gap-1 max-w-xl">
+            <span>PRIVACY: NO DATA COLLECTION // NO COOKIES</span>
+            <span
+                >DISCLAIMER: EXPERIMENTAL MINI-GAMES // INSPIRED BY CLASSICS //
+                NO AFFILIATION</span
+            >
+        </div>
+        <div class="text-right flex flex-col justify-end">
+            <span>EST. 2026 // SIMPLE BROWSER GAMES</span>
+            <span>SCANLINE V3.0 // VIBE-OS ACTIVATED</span>
+        </div>
     </div>
 </div>

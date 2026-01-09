@@ -46,10 +46,10 @@
     >
         <div class="animate-marquee inline-block">
             BREAKING NEWS: AI GENERATES GAME, HUMANS CONFUSED +++ VOID RUNNER
-            UPDATED +++ BALLOON POPPED +++ SNAKE EATS TAIL +++ ASTEROID IMPACT
-            IMMINENT +++ NO REFUNDS +++ BREAKING NEWS: AI GENERATES GAME, HUMANS
-            CONFUSED +++ VOID RUNNER UPDATED +++ BALLOON POPPED +++ SNAKE EATS
-            TAIL +++ ASTEROID IMPACT IMMINENT +++ NO REFUNDS +++
+            UPDATED +++ BALLOON ASCENT READY +++ BIT CRAWL RELEASED +++ COSMIC
+            CLASH IMMINENT +++ NO REFUNDS +++ BREAKING NEWS: AI GENERATES GAME,
+            HUMANS CONFUSED +++ VOID RUNNER UPDATED +++ BALLOON ASCENT READY +++
+            BIT CRAWL RELEASED +++ COSMIC CLASH IMMINENT +++ NO REFUNDS +++
         </div>
     </div>
 
@@ -72,11 +72,18 @@
 
     <!-- Footer / Legal -->
     <footer
-        class="absolute bottom-2 left-4 text-[0.5rem] font-merriweather text-neutral-500 max-w-xs opacity-50 z-50"
+        class="absolute bottom-2 left-4 text-[0.5rem] font-merriweather text-neutral-500 max-w-lg opacity-60 z-50 leading-tight"
     >
-        DISCLAIMER: This interface is for entertainment purposes only using
-        "Vibe OS" technology. Any resemblance to actual operating systems is
-        purely coincidental. Do not feed the code.
+        <div class="mb-1">
+            PRIVACY: This site does not collect any personal data or use
+            tracking cookies.
+        </div>
+        <div>
+            DISCLAIMER: A collection of experimental mini-games. Inspired by
+            classic arcade mechanics. No affiliation with original creators.
+            This interface is for entertainment purposes only using "Vibe OS"
+            technology. Do not feed the code.
+        </div>
     </footer>
 </main>
 
