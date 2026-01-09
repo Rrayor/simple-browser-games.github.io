@@ -24,6 +24,6 @@ export const games: GameMetadata[] = [
     {
         slug: 'void-runner',
         title: 'Void Runner',
-        description: 'Cyberpunk FPS parkour. Jump, wall-run, and survive the neon void.'
+        description: 'Cyberpunk FPS parkour. Jump, double-jump, wall-run, and survive the neon void.'
     }
 ];
