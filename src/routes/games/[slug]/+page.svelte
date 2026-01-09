@@ -1,20 +1,13 @@
 <script lang="ts">
-    import { page } from "$app/state"; // Svelte 5 state
-    import { onMount, onDestroy } from "svelte";
+    import { page as pageStore } from "$app/stores";
+    import { onDestroy } from "svelte";
     import { type Game } from "$lib/types/game";
     import { games } from "$lib/games/registry";
-
-    // In Svelte 5 with $app/state, page is reactive.
-    // However, page store is usually imported from '$app/stores' in SvelteKit 1/2.
-    // SvelteKit 2+ still uses '$app/stores'.
-    import { page as pageStore } from "$app/stores";
+    import NoiseBackground from "$lib/components/NoiseBackground.svelte";
 
     let container: HTMLElement;
     let currentGame: Game | null = null;
     let error: string | null = $state(null);
-
-    // We need to react to slug changes.
-    // We can use a derived store or $effect.
 
     let slug = $derived($pageStore.params.slug);
     let meta = $derived(games.find((g) => g.slug === slug));
@@ -34,18 +27,10 @@
         loadGame(slug);
     });
 
-    // Use import.meta.glob to load all game modules eagerly or lazily.
-    // We use keys to find the matching module.
     const modules = import.meta.glob("$lib/games/*/index.ts");
 
     async function loadGame(gameSlug: string) {
         try {
-            // Construct key expected by glob
-            // $lib alias might not work in glob keys directly depending on setup, usually it's relative or absolute-ish.
-            // glob keys are relative to the file or root.
-            // Let's check keys: they usually look like '/src/lib/games/flappy-balloon/index.ts'
-
-            // We can iterate to find the partial match.
             const match = Object.keys(modules).find((path) =>
                 path.includes(`/games/${gameSlug}/index.ts`),
             );
@@ -54,7 +39,7 @@
                 throw new Error(`Game module not found for: ${gameSlug}`);
             }
 
-            if (!container) return; // Unmounted during load
+            if (!container) return;
 
             const loader = modules[match];
             const module: any = await loader();
@@ -85,27 +70,49 @@
     });
 </script>
 
-<div class="w-full max-w-6xl mx-auto py-8">
-    <div class="mb-6 flex items-center justify-between">
-        <a
-            href="/games"
-            class="flex items-center text-sm font-medium text-neutral-400 hover:text-white transition-colors"
+<NoiseBackground />
+
+<div class="w-full max-w-6xl mx-auto py-8 px-4 relative">
+    <div
+        class="mb-10 flex flex-col md:flex-row items-baseline justify-between border-b-4 border-neutral-900 pb-2 bg-[#f4f1ea] px-4 shadow-sm rotate-[-0.5deg]"
+    >
+        <div class="flex items-baseline gap-4">
+            <a
+                href="/"
+                class="font-share text-xs font-bold text-neutral-700 hover:text-[#f0f] transition-colors uppercase tracking-widest"
+            >
+                &larr; Return to The Daily Glitch
+            </a>
+            {#if meta}
+                <h1
+                    class="font-russo text-3xl md:text-5xl text-neutral-900 uppercase tracking-tighter"
+                >
+                    {meta.title}
+                </h1>
+            {/if}
+        </div>
+
+        <div
+            class="font-share text-xs text-neutral-800 mt-2 md:mt-0 italic font-bold"
         >
-            <span aria-hidden="true" class="mr-2">&larr;</span> Back to Gallery
-        </a>
-        {#if meta}
-            <h1 class="text-2xl font-bold text-white">{meta.title}</h1>
-        {/if}
+            SECTION: VIBE-EXPERIMENTS // CLASSIFIED #{(
+                Math.random() * 10000
+            ).toFixed(0)}
+        </div>
     </div>
 
     <div
-        class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10 ring-1 ring-white/5"
+        class="relative w-full aspect-video bg-black shadow-[15px_15px_0px_#000] border-4 border-neutral-900 overflow-hidden"
     >
         {#if error}
             <div
-                class="absolute inset-0 flex items-center justify-center text-red-400 bg-red-950/20"
+                class="absolute inset-0 flex items-center justify-center text-red-500 bg-black font-share text-xl p-10 text-center"
             >
-                <p>{error}</p>
+                <p>
+                    ERROR: {error}<br /><span class="text-sm mt-4 block"
+                        >Please refresh or contact the void.</span
+                    >
+                </p>
             </div>
         {/if}
 
@@ -113,8 +120,48 @@
     </div>
 
     {#if meta}
-        <div class="mt-8 prose prose-invert max-w-none">
-            <p>{meta.description}</p>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+                class="md:col-span-2 bg-[#f4f1ea] p-6 border-2 border-neutral-900 shadow-[5px_5px_0px_#000] rotate-[0.2deg]"
+            >
+                <h2
+                    class="font-orbitron font-bold text-lg border-b-2 border-black mb-3 pb-1 uppercase text-black"
+                >
+                    About this Experiment
+                </h2>
+                <div
+                    class="font-merriweather text-sm leading-relaxed text-justify text-neutral-900"
+                >
+                    <p>{meta.description}</p>
+                </div>
+            </div>
+
+            <div
+                class="bg-yellow-100 p-4 border-2 border-neutral-900 shadow-[5px_5px_0px_#000] rotate-[-1deg] h-fit"
+            >
+                <h2
+                    class="font-russo text-center text-red-800 border-b border-black/30 mb-2 uppercase"
+                >
+                    ADVERTISEMENT
+                </h2>
+                <p
+                    class="font-share text-[0.65rem] text-center leading-tight text-neutral-900 font-bold"
+                >
+                    TIRED OF REALITY?<br />
+                    <span class="text-lg font-bold">JUMP INTO THE VOID!</span
+                    ><br />
+                    NO SUBSRIPTION REQUIRED.<br />
+                    AI CERTIFIED SLOP.
+                </p>
+            </div>
         </div>
     {/if}
+
+    <!-- Footer / Bottom Bar -->
+    <div
+        class="mt-16 border-t border-neutral-300 pt-4 flex justify-between font-share text-[0.6rem] text-neutral-400 uppercase tracking-widest"
+    >
+        <span>EST. 2026 // SIMPLE BROWSER GAMES</span>
+        <span>SCANLINE V3.0 // VIBE-OS ACTIVATED</span>
+    </div>
 </div>

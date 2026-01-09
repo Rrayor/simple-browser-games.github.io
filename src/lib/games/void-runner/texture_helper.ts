@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 
 // Cars texture (blurry circle)
 const canvas = document.createElement('canvas');
