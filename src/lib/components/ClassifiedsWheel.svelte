@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { games } from "$lib/games/registry";
+    import { base } from '$app/paths';
     import { fade, fly } from "svelte/transition";
 
     let rotation = 0;
@@ -74,7 +75,7 @@
             {@const pos = gridPositions[i] || { x: 0, y: 0, rot: 0 }}
 
             <a
-                href={`/games/${game.slug}`}
+                href={`${base}/games/${game.slug}`}
                 class="absolute block w-64 p-4 bg-[#f0f0f0] border-2 border-neutral-900 shadow-[8px_8px_0px_#000] hover:shadow-[12px_12px_0px_#f0f] hover:border-[#f0f] transition-all group hover:scale-110 z-10"
                 style="transform: translate({pos.x}px, {pos.y}px) rotate({pos.rot}deg);"
                 draggable="false"

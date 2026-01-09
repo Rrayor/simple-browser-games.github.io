@@ -3,6 +3,7 @@
     import { onDestroy } from "svelte";
     import { type Game } from "$lib/types/game";
     import { games } from "$lib/games/registry";
+    import { base } from '$app/paths';
     import NoiseBackground from "$lib/components/NoiseBackground.svelte";
 
     let container: HTMLElement;
@@ -78,7 +79,7 @@
     >
         <div class="flex items-baseline gap-4">
             <a
-                href="/"
+                href="{base}/"
                 class="font-share text-xs font-bold text-neutral-700 hover:text-[#f0f] transition-colors uppercase tracking-widest"
             >
                 &larr; Return to The Daily Glitch
