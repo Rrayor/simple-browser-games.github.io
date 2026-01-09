@@ -88,9 +88,14 @@ export class VoidRunnerGame {
         instructions.style.marginTop = '1rem';
         this.overlay.appendChild(instructions);
 
-        this.overlay.addEventListener('click', async () => {
+        this.overlay.addEventListener('click', (e) => {
+            // Prevent locking if clicking buttons
+            if ((e.target as HTMLElement).tagName === 'BUTTON') return;
+
             this.controls?.lock();
-            await this.soundManager.init(); // Initialize audio context on click
+            this.soundManager.init().then(() => {
+                if (!this.soundManager.muteMusic) this.soundManager.playMusic();
+            });
             this.prevTime = performance.now();
         });
 
@@ -102,7 +107,60 @@ export class VoidRunnerGame {
             if (this.overlay) this.overlay.style.display = 'flex';
         });
 
+        // Audio Controls Container
+        const audioControls = document.createElement('div');
+        audioControls.style.marginTop = '20px';
+        audioControls.style.display = 'flex';
+        audioControls.style.gap = '20px';
+
+        // Music Toggle
+        const btnMusic = document.createElement('button');
+        btnMusic.innerText = 'MUSIC: ON';
+        btnMusic.style.padding = '10px 20px';
+        btnMusic.style.background = '#00aaff';
+        btnMusic.style.border = 'none';
+        btnMusic.style.color = 'black';
+        btnMusic.style.fontFamily = 'monospace';
+        btnMusic.style.cursor = 'pointer';
+        btnMusic.onclick = (e) => {
+            e.stopPropagation();
+            this.soundManager.muteMusic = !this.soundManager.muteMusic;
+            if (this.soundManager.muteMusic) {
+                this.soundManager.stopMusic();
+                btnMusic.innerText = 'MUSIC: OFF';
+                btnMusic.style.background = '#444';
+            } else {
+                // Don't play immediately if on start screen, wait for start
+                if (this.controls?.isLocked) this.soundManager.playMusic();
+                btnMusic.innerText = 'MUSIC: ON';
+                btnMusic.style.background = '#00aaff';
+            }
+        };
+
+        // SFX Toggle
+        const btnSfx = document.createElement('button');
+        btnSfx.innerText = 'SFX: ON';
+        btnSfx.style.padding = '10px 20px';
+        btnSfx.style.background = '#00aaff';
+        btnSfx.style.border = 'none';
+        btnSfx.style.color = 'black';
+        btnSfx.style.fontFamily = 'monospace';
+        btnSfx.style.cursor = 'pointer';
+        btnSfx.onclick = (e) => {
+            e.stopPropagation();
+            this.soundManager.muteSfx = !this.soundManager.muteSfx;
+            btnSfx.innerText = this.soundManager.muteSfx ? 'SFX: OFF' : 'SFX: ON';
+            btnSfx.style.background = this.soundManager.muteSfx ? '#444' : '#00aaff';
+        };
+
+        audioControls.appendChild(btnMusic);
+        audioControls.appendChild(btnSfx);
+        this.overlay.appendChild(audioControls);
+
         container.appendChild(this.overlay);
+
+        // Visibility Change Handler
+        document.addEventListener('visibilitychange', this.onVisibilityChange);
     }
 
     private onKeyDown = (event: KeyboardEvent) => {
@@ -472,6 +530,18 @@ export class VoidRunnerGame {
                             this.velocity.y = -0.2; // Even slower descent
                             this.jumpCount = 0; // Reset for full double jump capability
 
+                            // Wall Run Spawning Logic
+                            const wallHits = leftHits.length > 0 ? leftHits : rightHits;
+                            if (wallHits.length > 0) {
+                                const wall = wallHits[0].object as THREE.Mesh;
+                                if (!this.contactedPlatforms.has(wall)) {
+                                    this.contactedPlatforms.add(wall);
+                                    this.score++;
+                                    this.updateInstructions();
+                                    this.spawnNextPlatform();
+                                }
+                            }
+
                             // Camera Tilt Logic
                             if (leftHits.length > 0) targetRoll = -0.15; // Tilt right (away)
                             else if (rightHits.length > 0) targetRoll = 0.15; // Tilt left (away)
@@ -530,6 +600,18 @@ export class VoidRunnerGame {
         if (this.controls) this.controls.unlock();
         this.camera.position.set(0, 2, 0);
         this.velocity.set(0, 0, 0);
+
+        // Update Overlay with FINAL SCORE
+        if (this.overlay) {
+            const title = this.overlay.querySelector('h1');
+            if (title) title.innerText = 'GAME OVER';
+            const p = this.overlay.querySelector('p');
+            if (p) {
+                p.innerHTML = `FINAL SCORE: ${this.score}<br><br>CLICK TO RESTART\n(WASD to Move, SPACE to Jump)`;
+            }
+            this.overlay.style.display = 'flex';
+        }
+
         this.score = 0;
 
         // Reset world
@@ -542,14 +624,6 @@ export class VoidRunnerGame {
         this.contactedPlatforms.clear();
         this.nextZ = -15;
         this.setupInitialEnvironment();
-
-        if (this.overlay) {
-            const title = this.overlay.querySelector('h1');
-            if (title) title.innerText = 'GAME OVER';
-            const p = this.overlay.querySelector('p');
-            if (p) p.innerText = 'CLICK TO RESTART';
-            this.overlay.style.display = 'flex';
-        }
     }
 
     private onResize = () => {
@@ -559,11 +633,25 @@ export class VoidRunnerGame {
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     };
 
+    private onVisibilityChange = () => {
+        if (document.hidden) {
+            this.soundManager.stopMusic();
+        } else {
+            if (!this.soundManager.muteMusic && this.controls?.isLocked) {
+                this.soundManager.playMusic();
+            }
+        }
+    };
+
     destroy() {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this.onResize);
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('keyup', this.onKeyUp);
+        document.removeEventListener('visibilitychange', this.onVisibilityChange);
+
+        this.soundManager.stopMusic();
+
         this.container?.removeChild(this.renderer.domElement);
         if (this.overlay && this.container?.contains(this.overlay)) {
             this.container.removeChild(this.overlay);
